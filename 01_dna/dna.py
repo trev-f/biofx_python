@@ -17,6 +17,13 @@ def main() -> None:
 
 
 def count_dna_bases(seq: str) -> list[int]:
+    """Count the number of each base in a DNA sequence
+
+    :param seq: DNA sequence
+    :type seq: str
+    :return: The count of each base in alphabetical order: A, C, G, T
+    :rtype: list[int]
+    """
     counts = [0, 0, 0, 0]
 
     for base in seq:
@@ -33,6 +40,13 @@ def count_dna_bases(seq: str) -> list[int]:
 
 
 def format_counts(counts: list[int]) -> str:
+    """Format a list of counts to the expected format of a string of counts separated by spaces
+
+    :param counts: A list of counts
+    :type counts: list[int]
+    :return: Counts separated by spaces in the same order in which they are supplied
+    :rtype: str
+    """
     counts = [str(count) for count in counts]
 
     return ' '.join(counts)
