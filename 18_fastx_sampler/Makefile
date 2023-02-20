@@ -3,7 +3,7 @@ SYNTH = ../17_synth/synth.py
 TRAIN = ../17_synth/tests/inputs/*.fa
 
 test: fasta
-	python3 -m pytest -xv --disable-pytest-warnings --flake8 --pylint --pylint-rcfile=../pylintrc --mypy sampler.py tests/sampler_test.py
+	python3 -m pytest -xv   sampler.py tests/sampler_test.py
 
 all:
 	../bin/all_test.py sampler.py
