@@ -14,9 +14,14 @@ def main() -> None:
 
     inout.make_out_dir()
 
-    for fh in args.files:
-        with open(inout.construct_out_path(fh=fh), 'wt') as out_fh:
-            out_fh.write(Transcription(dna=fh.read()).solve())
+    for in_fh in args.files:
+        inout.num_files += 1
+        with open(inout.construct_out_path(fh=in_fh), 'wt', encoding='utf-8') as out_fh:
+            for dna in in_fh:
+                inout.num_sequences += 1
+                out_fh.write(Transcription(dna=dna).solve())
+
+    inout.print_status_report()
 
 
 class InputOutput:
@@ -30,6 +35,21 @@ class InputOutput:
         :type out_dir: str
         """
         self.out_dir = out_dir
+        self.num_sequences = 0
+        self.num_files = 0
+
+    def print_status_report(self) -> None:
+        sequences_term = 'sequence' if self.num_sequences == 1 else 'sequences'
+        files_term = 'file' if self.num_files == 1 else 'files'
+
+        status_report = (
+            'Done, wrote ' +
+            f'{self.num_sequences} {sequences_term} ' +
+            f'in {self.num_files} {files_term} ' +
+            f'to directory "{self.out_dir}".'
+        )
+
+        print(status_report)
 
     def make_out_dir(self) -> None:
         """Make output directory
