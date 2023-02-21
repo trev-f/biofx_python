@@ -3,6 +3,7 @@
 
 import argparse
 import os
+from collections import Counter
 from dataclasses import dataclass
 
 
@@ -35,7 +36,7 @@ class DNACounts:
 
         return self._format_counts(counts)
 
-    def count_dna_bases(self, seq: str) -> tuple[int, int, int, int]:
+    def count_dna_bases(self, seq: str) -> dict[str, int]:
         """Count the number of each base in a DNA sequence
 
         :param seq: DNA sequence
@@ -43,21 +44,11 @@ class DNACounts:
         :return: The count of each base in alphabetical order: A, C, G, T
         :rtype: list[int]
         """
-        counts = [0, 0, 0, 0]
-
-        for base in seq:
-            if base in "Aa":
-                counts[0] += 1
-            elif base in "Cc":
-                counts[1] += 1
-            elif base in "Gg":
-                counts[2] += 1
-            elif base in "Tt":
-                counts[3] += 1
+        counts = Counter(seq)
 
         return counts
 
-    def _format_counts(self, counts: tuple[int, int, int, int]) -> str:
+    def _format_counts(self, counts: dict[str, int]) -> str:
         """Format a list of counts to the expected format of a string of counts separated by spaces
 
         :param counts: A list of counts
@@ -65,7 +56,12 @@ class DNACounts:
         :return: Counts separated by spaces in the same order in which they are supplied
         :rtype: str
         """
-        counts = [str(count) for count in counts]
+        counts = (
+            str(counts.get('A', 0)),
+            str(counts.get('C', 0)),
+            str(counts.get('G', 0)),
+            str(counts.get('T', 0)),
+        )
 
         return ' '.join(counts)
 
