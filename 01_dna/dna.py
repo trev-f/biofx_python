@@ -11,45 +11,63 @@ def main() -> None:
 
     args = get_args()
 
-    counts = count_dna_bases(seq=args.dna)
-
-    print(format_counts(counts=counts))
+    print(DNACounts(args.dna).solve())
 
 
-def count_dna_bases(seq: str) -> list[int]:
-    """Count the number of each base in a DNA sequence
-
-    :param seq: DNA sequence
-    :type seq: str
-    :return: The count of each base in alphabetical order: A, C, G, T
-    :rtype: list[int]
+class DNACounts:
+    """A representation of counting bases in DNA
     """
-    counts = [0, 0, 0, 0]
+    def __init__(self, seq: str) -> None:
+        """Create the DNA counts instance
 
-    for base in seq:
-        if base in "Aa":
-            counts[0] += 1
-        elif base in "Cc":
-            counts[1] += 1
-        elif base in "Gg":
-            counts[2] += 1
-        elif base in "Tt":
-            counts[3] += 1
+        :param seq: DNA sequence
+        :type seq: str
+        """
+        self.seq = seq
 
-    return counts
+    def solve(self) -> str:
+        """Return counts of DNA bases
 
+        :return: Space-separated counts of DNA bases in alphabetical order: A, C, G, T
+        :rtype: str
+        """
+        counts = self.count_dna_bases(seq=self.seq)
 
-def format_counts(counts: list[int]) -> str:
-    """Format a list of counts to the expected format of a string of counts separated by spaces
+        return self._format_counts(counts)
 
-    :param counts: A list of counts
-    :type counts: list[int]
-    :return: Counts separated by spaces in the same order in which they are supplied
-    :rtype: str
-    """
-    counts = [str(count) for count in counts]
+    def count_dna_bases(self, seq: str) -> tuple[int, int, int, int]:
+        """Count the number of each base in a DNA sequence
 
-    return ' '.join(counts)
+        :param seq: DNA sequence
+        :type seq: str
+        :return: The count of each base in alphabetical order: A, C, G, T
+        :rtype: list[int]
+        """
+        counts = [0, 0, 0, 0]
+
+        for base in seq:
+            if base in "Aa":
+                counts[0] += 1
+            elif base in "Cc":
+                counts[1] += 1
+            elif base in "Gg":
+                counts[2] += 1
+            elif base in "Tt":
+                counts[3] += 1
+
+        return counts
+
+    def _format_counts(self, counts: tuple[int, int, int, int]) -> str:
+        """Format a list of counts to the expected format of a string of counts separated by spaces
+
+        :param counts: A list of counts
+        :type counts: list[int]
+        :return: Counts separated by spaces in the same order in which they are supplied
+        :rtype: str
+        """
+        counts = [str(count) for count in counts]
+
+        return ' '.join(counts)
 
 
 @dataclass(frozen=True)
