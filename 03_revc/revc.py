@@ -57,7 +57,7 @@ class RevComp:
         :return: Complementation table.
         :rtype: dict[int, int]
         """
-        return str.maketrans('ATCG', 'TAGC')
+        return str.maketrans('ATCGatcg', 'TAGCtagc')
 
     def reverse(self, dna: str) -> str:
         """Reverse a DNA sequence
