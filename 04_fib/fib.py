@@ -29,13 +29,29 @@ class Fibonacci:
 
     def solve(self) -> int:
         """Solve the calculate Fibonacci problem
+
+        :return: Fibonacci number
+        :rtype: int
         """
-        for _ in range(self._args.generations - 1):
-            f_n = (self.fib_seq[0] * self._args.litter) + self.fib_seq[1]
-            self.fib_seq.append(f_n)
+        return self.calculate_fib_number(generations=self._args.generations, litter=self._args.litter)
+
+    def calculate_fib_number(self, generations: int, litter: int) -> int:
+        """Calculate a Fibonacci number
+
+        :param generations: Number of generations
+        :type generations: int
+        :param litter: Size of litter
+        :type litter: int
+        :return: Fibonacci number
+        :rtype: int
+        """
+        for _ in range(generations - 1):
+            fib_num = (self.fib_seq[0] * litter) + self.fib_seq[1]
+            self.fib_seq.append(fib_num)
             self.fib_seq.popleft()
 
-        return f_n
+        return fib_num
+
 
 
 @dataclass(frozen=True)
