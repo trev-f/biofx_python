@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 import argparse
+from collections import deque
 from dataclasses import dataclass
 
 
@@ -23,13 +24,18 @@ class Fibonacci:
         :type args: Args
         """
         self._args = args
-    
+        self.fib_seq = deque([0, 1])
 
-    def solve(self) -> None:
+
+    def solve(self) -> int:
         """Solve the calculate Fibonacci problem
         """
-        print(f'Generations: {self._args.generations}')
-        print(f'Litter: {self._args.litter}')
+        for _ in range(self._args.generations - 1):
+            f_n = (self.fib_seq[0] * self._args.litter) + self.fib_seq[1]
+            self.fib_seq.append(f_n)
+            self.fib_seq.popleft()
+
+        return f_n
 
 
 @dataclass(frozen=True)
