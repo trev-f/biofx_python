@@ -36,8 +36,9 @@ class CGC:
         :rtype: str
         """
         gc_percents = self.compute_fasta_records_percent_gc(fasta=self._args.file)
+        max_gc_percent = self.max_dict(gc_percents)
 
-        return gc_percents
+        return self.format_max_gc_percent(max_gc_percent=max_gc_percent)
 
 
     def compute_fasta_records_percent_gc(self, fasta: TextIO | str) -> dict[str, float]:
@@ -82,6 +83,33 @@ class CGC:
                 gc_count += 1
 
         return gc_count
+
+
+    def max_dict(self, d: dict) -> dict:
+        """Return the item with the maximum value from a dictionary
+
+        :param d: Dictionary
+        :type d: dict
+        :return: Item with max value
+        :rtype: dict
+        """
+        max_key, max_val = max(d.items(), key=lambda k: k[1])
+
+        return {max_key: max_val}
+
+
+    def format_max_gc_percent(self, max_gc_percent: dict[str, float]) -> str:
+        """Format the maximum GC percent for the Rosalind answer
+
+        :param max_gc_percent: Maximum GC percentage consisting of a sequence ID key and percent GC value
+        :type max_gc_percent: dict[str, float]
+        :return: Formatted GC percentage solution of form: '<sequence ID> <percent GC to 6 decimals>'
+        :rtype: str
+        """
+        for item in max_gc_percent.items():
+            seq_id, gc_percent = item
+
+        return f'{seq_id} {gc_percent:.6f}'
 
 
 @dataclass(frozen=True)
