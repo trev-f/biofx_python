@@ -38,3 +38,10 @@ If we test each unit at the implementation level, this impedes development speed
 
 In short, I prefer TDD targeted at testing behavior.
 A principle in OOP is to program to an interface, and when it comes to TDD I prefer testing to behaviors.
+
+### Hamming distance
+
+A small complaint, but in chapter 6 there seems to be some confusion on what Hamming distance.
+I appreciate the attempt to try and make the Hamming distance more general, but Hamming distance is pretty explicitly about finding the distance between two strings of equal length.
+There's almost an attempt here to make this a problem about solving for a simplified Levenshtein distance, but I don't think it's quite the same.
+Again, it's a minor point but when it comes to these things I prefer being as precise as possible.
