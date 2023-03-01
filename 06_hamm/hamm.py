@@ -5,6 +5,7 @@
 from __future__ import annotations
 import argparse
 from dataclasses import dataclass
+from itertools import zip_longest
 
 
 def main() -> None:
@@ -35,7 +36,7 @@ class Hamm:
         return hamming_distance
 
     def compute_hamming_distance(self, seq1: str, seq2: str) -> int:
-        """Compute the Hamming distance (number of differences between two strings of equal length)
+        """Compute the Hamming distance (number of differences between two strings)
 
         :param seq1: DNA sequence 1
         :type seq1: str
@@ -45,7 +46,7 @@ class Hamm:
         :rtype: int
         """
         hamming_distance = 0
-        for base1, base2 in zip(seq1, seq2):
+        for base1, base2 in zip_longest(seq1, seq2):
             if base1 != base2:
                 hamming_distance += 1
 
