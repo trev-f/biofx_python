@@ -24,15 +24,28 @@ class Hamm:
         """
         self._args = args
 
-
     def solve(self) -> int:
         """Solve the compute Hamming distance problem
 
         :return: Hamming distance
         :rtype: int
         """
+        hamming_distance = self.compute_hamming_distance(self._args.seq1, self._args.seq2)
+
+        return hamming_distance
+
+    def compute_hamming_distance(self, seq1: str, seq2: str) -> int:
+        """Compute the Hamming distance (number of differences between two strings of equal length)
+
+        :param seq1: DNA sequence 1
+        :type seq1: str
+        :param seq2: DNA sequence 2
+        :type seq2: str
+        :return: Hamming distance
+        :rtype: int
+        """
         hamming_distance = 0
-        for base1, base2 in zip(self._args.seq1, self._args.seq2):
+        for base1, base2 in zip(seq1, seq2):
             if base1 != base2:
                 hamming_distance += 1
 
